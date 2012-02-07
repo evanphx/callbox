@@ -12,11 +12,11 @@ Twilio.connect "AC3ef7e0ae57a87f5fb649f37a0f5e5d18", "6b3ab9255da1ac23a2c96d2c54
 
 Thread.abort_on_exception = true
 
-log = "call.log"
+Log = "call.log"
 
 class Callbox < Sinatra::Base
   get '/' do
-    "<pre>#{File.read(log)}</pre>"
+    "<pre>#{File.read(Log)}</pre>"
   end
 
   post '/call' do
@@ -33,7 +33,7 @@ class Callbox < Sinatra::Base
     code = params["Digits"]
 
     if File.read("code").strip == code
-      File.open(log, "a") do |f|
+      File.open(Log, "a") do |f|
         f.puts "#{Time.now}: ok"
       end
 
@@ -44,7 +44,7 @@ class Callbox < Sinatra::Base
 </Response>
       XML
     else
-      File.open(log, "a") do |f|
+      File.open(Log, "a") do |f|
         f.puts "#{Time.now}: fail"
       end
 
